@@ -1,28 +1,14 @@
 const checkForSpam = function(message) {
-  const arraySymbols = message.toLowerCase().split('');
-  const newArraySymbols = [];
+  const textMessage = message.toLowerCase();
 
-  for (let i = 0; i <= arraySymbols.length - 1; i += 1) {
-    if (
-      arraySymbols[i].includes('[') === false &&
-      arraySymbols[i].includes(']') === false
-    ) {
-      newArraySymbols.push(arraySymbols[i]);
-    }
+  if (
+    textMessage.includes('spam') === true ||
+    textMessage.includes('sale') === true
+  ) {
+    return false;
   }
 
-  const formatMessage = newArraySymbols.join('');
-  const arrayWords = formatMessage.split(' ');
-
-  for (let i = 0; i <= arrayWords.length - 1; i += 1) {
-    if (
-      arrayWords[i].includes('spam') === true ||
-      arrayWords[i].includes('sale') === true
-    ) {
-      return true;
-    }
-  }
-  return false;
+  return true;
 };
 
 /*

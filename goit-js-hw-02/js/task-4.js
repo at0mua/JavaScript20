@@ -1,8 +1,6 @@
 const formatString = function(string) {
   if (string.length > 40) {
-    const arraySymbols = string.split('');
-    const newArraySymbols = arraySymbols.slice(0, 40);
-    const newString = newArraySymbols.join('');
+    const newString = string.slice(0, 40);
     return newString.concat('...');
   }
   return string;
