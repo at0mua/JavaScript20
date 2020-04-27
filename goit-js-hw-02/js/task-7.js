@@ -6,15 +6,15 @@ const isLoginValid = function(login) {
 };
 
 const isLoginUnique = function(allLogins, login) {
-  if (allLogins.includes(login) === false) {
-    return true;
+  if (allLogins.includes(login)) {
+    return false;
   }
-  return false;
+  return true;
 };
 
 const addLogin = function(allLogins, login) {
-  if (isLoginValid(login) === true) {
-    if (isLoginUnique(allLogins, login) === true) {
+  if (isLoginValid(login)) {
+    if (isLoginUnique(allLogins, login)) {
       allLogins.push(login);
       return alert('Логин успешно добавлен!');
     }
