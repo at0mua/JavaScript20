@@ -4,12 +4,11 @@ let total = 0;
 
 do {
   input = prompt('Введите случайное число');
-  console.log(input);
 
-  if (Number.isNaN(Number(input)) === false) {
-    numbers.push(Number(input));
-  } else {
+  if (Number.isNaN(Number(input))) {
     alert('Было введено не число, попробуйте еще раз');
+  } else {
+    numbers.push(Number(input));
   }
 } while (input !== null);
 
