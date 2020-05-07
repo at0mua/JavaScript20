@@ -11,8 +11,6 @@ const Transaction = {
  * Каждая транзакция это объект со свойствами: id, type и amount
  */
 
-let trId = 0;
-
 const account = {
   // Текущий баланс счета
   balance: 0,
@@ -20,14 +18,16 @@ const account = {
   // История транзакций
   transactions: [],
 
+  trId: 0,
+
   /*
    * Метод создает и возвращает объект транзакции.
    * Принимает сумму и тип транзакции.
    */
   createTransaction(amount, type) {
-    trId += 1;
-    const transactions = { ID: trId, TYPE: type, AMOUNT: amount };
-    this.transactions.push(transactions);
+    this.trId += 1;
+    const transaction = { ID: this.trId, TYPE: type, AMOUNT: amount };
+    return transaction;
   },
 
   /*
@@ -38,7 +38,7 @@ const account = {
    */
   deposit(amount) {
     this.balance += amount;
-    this.createTransaction(amount, 'deposit');
+    this.transactions.push(this.createTransaction(amount, Transaction.DEPOSIT));
   },
 
   /*
@@ -53,7 +53,9 @@ const account = {
   withdraw(amount) {
     if (amount < this.balance) {
       this.balance -= amount;
-      this.createTransaction(amount, 'withdraw');
+      this.transactions.push(
+        this.createTransaction(amount, Transaction.WITHDRAW),
+      );
     }
     return 'Cятие такой суммы не возможно, недостаточно средств.';
   },
