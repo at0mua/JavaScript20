@@ -1,5 +1,6 @@
 import images from './gallery-items.js';
 
+const imagesQuantity = images.length;
 const galleryRef = document.querySelector('.js-gallery');
 const modalWindowRef = document.querySelector('.js-lightbox');
 const closeModalBtnRef = document.querySelector(
@@ -50,7 +51,9 @@ function imgClick(event) {
 function onOpenModal(event) {
   modalImg.src = event.target.dataset.source;
   modalImg.alt = event.target.alt;
+  modalImg.dataset.index = event.target.dataset.index;
   window.addEventListener('keydown', onPressEscape);
+  window.addEventListener('keydown', onPressArrow);
   modalWindowRef.classList.add('is-open');
 }
 
@@ -58,12 +61,11 @@ function onCloseModal() {
   modalImg.src = '';
   modalImg.alt = '';
   window.removeEventListener('keydown', onPressEscape);
+  window.removeEventListener('keydown', onPressArrow);
   modalWindowRef.classList.remove('is-open');
 }
 
 function onOverlayClick(event) {
-  console.log('event target: ', event.target);
-  console.log('event currentTarget: ', event.currentTarget);
   if (event.target !== event.currentTarget) {
     return;
   }
@@ -72,6 +74,37 @@ function onOverlayClick(event) {
 
 function onPressEscape(event) {
   if (event.code === 'Escape') {
+    console.log(event.target);
     onCloseModal();
   }
+}
+
+function nextImg(event, index) {
+  if (event.code === 'ArrowRight') {
+    index += 1;
+    validIndex(index);
+    console.log(index);
+  }
+}
+
+function prevImg(event, index) {
+  if (event.code === 'ArrowLeft') {
+    index -= 1;
+    validIndex(index);
+    console.log(index);
+  }
+}
+
+function validIndex(index) {
+  if (index >= 1 && index <= imagesQuantity) {
+    modalImg.src = images[index - 1].original;
+    modalImg.alt = images[index - 1].description;
+    modalImg.dataset.index = index;
+  }
+}
+
+function onPressArrow(event) {
+  const index = Number(modalImg.dataset.index);
+  nextImg(event, index);
+  prevImg(event, index);
 }
