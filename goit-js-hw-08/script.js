@@ -1,6 +1,12 @@
 import images from './gallery-items.js';
 
 const galleryRef = document.querySelector('.js-gallery');
+const modalWindowRef = document.querySelector('.js-lightbox');
+const closeModalBtnRef = document.querySelector(
+  'button[data-action="close-lightbox"]',
+);
+const modalOverlayRef = document.querySelector('.lightbox__overlay');
+const modalImg = document.querySelector('.lightbox__image');
 
 const createElem = (element, index) => {
   const item = document.createElement('li');
@@ -23,16 +29,49 @@ const createElem = (element, index) => {
   return item;
 };
 
-const arrElem = images.map((element, index) => createElem(element, index));
+const arrElem = images.map((element, index) => createElem(element, index + 1));
 
 galleryRef.append(...arrElem);
 
 galleryRef.addEventListener('click', imgClick);
+closeModalBtnRef.addEventListener('click', onCloseModal);
+modalOverlayRef.addEventListener('click', onOverlayClick);
 
 function imgClick(event) {
   event.preventDefault();
+
   if (event.target.nodeName !== 'IMG') {
     return;
   }
-  console.log(event.target.dataset.source);
+
+  onOpenModal(event);
+}
+
+function onOpenModal(event) {
+  modalImg.src = event.target.dataset.source;
+  modalImg.alt = event.target.alt;
+  window.addEventListener('keydown', onPressEscape);
+  modalWindowRef.classList.add('is-open');
+}
+
+function onCloseModal() {
+  modalImg.src = '';
+  modalImg.alt = '';
+  window.removeEventListener('keydown', onPressEscape);
+  modalWindowRef.classList.remove('is-open');
+}
+
+function onOverlayClick(event) {
+  console.log('event target: ', event.target);
+  console.log('event currentTarget: ', event.currentTarget);
+  if (event.target !== event.currentTarget) {
+    return;
+  }
+  onCloseModal();
+}
+
+function onPressEscape(event) {
+  if (event.code === 'Escape') {
+    onCloseModal();
+  }
 }
