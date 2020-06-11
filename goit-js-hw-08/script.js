@@ -74,7 +74,6 @@ function onOverlayClick(event) {
 
 function onPressEscape(event) {
   if (event.code === 'Escape') {
-    console.log(event.target);
     onCloseModal();
   }
 }
@@ -83,7 +82,6 @@ function nextImg(event, index) {
   if (event.code === 'ArrowRight') {
     index += 1;
     validIndex(index);
-    console.log(index);
   }
 }
 
@@ -91,7 +89,6 @@ function prevImg(event, index) {
   if (event.code === 'ArrowLeft') {
     index -= 1;
     validIndex(index);
-    console.log(index);
   }
 }
 
