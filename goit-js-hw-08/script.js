@@ -98,6 +98,16 @@ function validIndex(index) {
     modalImg.alt = images[index - 1].description;
     modalImg.dataset.index = index;
   }
+  if (index < 1) {
+    modalImg.src = images[imagesQuantity - 1].original;
+    modalImg.alt = images[imagesQuantity - 1].description;
+    modalImg.dataset.index = imagesQuantity;
+  }
+  if (index > imagesQuantity) {
+    modalImg.src = images[0].original;
+    modalImg.alt = images[0].description;
+    modalImg.dataset.index = 1;
+  }
 }
 
 function onPressArrow(event) {
