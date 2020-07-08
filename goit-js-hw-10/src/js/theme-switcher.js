@@ -8,34 +8,27 @@ const refs = {
   switcher: document.querySelector('.js-switch-input'),
 };
 
-function setLightTheme() {
-  refs.body.classList.add(Theme.LIGHT);
-  refs.body.classList.remove(Theme.DARK);
-  localStorage.setItem('theme', Theme.LIGHT);
-}
-
-function setDarkTheme() {
-  refs.body.classList.add(Theme.DARK);
-  refs.body.classList.remove(Theme.LIGHT);
-  localStorage.setItem('theme', Theme.DARK);
+function themeStyle(setStyle, removeStyle, switcherChecked) {
+  refs.body.classList.add(setStyle);
+  refs.body.classList.remove(removeStyle);
+  localStorage.setItem('theme', setStyle);
+  refs.switcher.checked = switcherChecked;
 }
 
 function setTheme(event) {
   if (event.target.checked) {
-    setDarkTheme();
+    themeStyle(Theme.DARK, Theme.LIGHT, true);
     return;
   }
-  setLightTheme();
+  themeStyle(Theme.LIGHT, Theme.DARK, false);
 }
 
 function storageTheme() {
   if (localStorage.getItem('theme') === Theme.LIGHT) {
-    setLightTheme();
-    refs.switcher.checked = false;
+    themeStyle(Theme.LIGHT, Theme.DARK, false);
   }
   if (localStorage.getItem('theme') === Theme.DARK) {
-    setDarkTheme();
-    refs.switcher.checked = true;
+    themeStyle(Theme.DARK, Theme.LIGHT, true);
   }
 }
 
