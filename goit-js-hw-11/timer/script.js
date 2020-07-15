@@ -20,7 +20,7 @@ function timer() {
 const newTimer = setInterval(timer, 1000);
 
 function updateCountdownTimer(time) {
-  const days = pad(Math.floor(time / (1000 * 60 * 60 * 24)));
+  const days = Math.floor(time / (1000 * 60 * 60 * 24));
   const hours = pad(
     Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
   );
