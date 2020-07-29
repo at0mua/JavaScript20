@@ -22,6 +22,13 @@ img {
   width: 940px;
 }
 
+.searchForm {
+  margin-top: 20px;
+  width: 300px;
+  height: 40px;
+  font-size: 20px;
+}
+
 /*    */
 
 .country-item__name {
