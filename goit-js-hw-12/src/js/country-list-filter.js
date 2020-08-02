@@ -7,12 +7,10 @@ export default function(data, length) {
   if (length === 1) {
     const markup = countryTpl(data);
     refs.countryList.insertAdjacentHTML('beforeend', markup);
-  }
-  if (length > 1 && length <= 10) {
+  } else if (length > 1 && length <= 10) {
     const markup = countriesList(data);
     refs.countryList.insertAdjacentHTML('beforeend', markup);
-  }
-  if (length > 10) {
+  } else {
     errorMessage();
   }
 }
