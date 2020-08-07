@@ -13,10 +13,20 @@ refs.serchForm.addEventListener('submit', e => {
 
   form.reset();
   fetchService.resetPage();
+  refs.loadMoreBtn.classList.add('is-hidden');
 
-  fetchService.fetchRequets().then(updateGalleryMarkup);
+  fetchImg();
 });
 
-refs.loadMoreBtn.addEventListener('click', () => {
-  fetchService.fetchRequets().then(updateGalleryMarkup);
-});
+refs.loadMoreBtn.addEventListener('click', fetchImg);
+
+function fetchImg() {
+  fetchService.fetchRequets().then(img => {
+    updateGalleryMarkup(img);
+    refs.loadMoreBtn.classList.remove('is-hidden');
+    window.scrollTo({
+      top: document.documentElement.offsetHeight,
+      behavior: 'smooth',
+    });
+  });
+}
